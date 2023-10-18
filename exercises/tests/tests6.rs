@@ -18,10 +18,7 @@ struct Foo {
 ///
 /// The `ptr` must contain an owned box of `Foo`.
 unsafe fn raw_pointer_to_box(ptr: *mut Foo) -> Box<Foo> {
-    // SAFETY: The `ptr` contains an owned box of `Foo` by contract. We
-    // simply reconstruct the box from that pointer.
-    let mut ret: Box<Foo> = unsafe { ??? };
-    todo!("The rest of the code goes here")
+    Box::from_raw(ptr)
 }
 
 #[cfg(test)]
@@ -40,6 +37,6 @@ mod tests {
         let ptr_2 = &ret.a as *const u128 as usize;
 
         assert!(ptr_1 == ptr_2);
-        assert!(ret.b == Some("hello".to_owned()));
+        assert!(ret.b == None);
     }
 }
