@@ -34,6 +34,8 @@ fn main() {
         // TODO: Print the value of the JobStatus.jobs_completed. Did you notice
         // anything interesting in the output? Do you have to 'join' on all the
         // handles?
-        println!("jobs completed {}", ???);
+        let status_shared = status.clone();
+        let tmp = status_shared.lock().unwrap();
+        println!("jobs completed {}", tmp.jobs_completed);
     }
 }
